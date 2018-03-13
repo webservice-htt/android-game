@@ -1,13 +1,19 @@
 package com.example.baobang.gameduangua.all_course;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.baobang.gameduangua.Constant;
 import com.example.baobang.gameduangua.R;
@@ -16,8 +22,10 @@ import com.example.baobang.gameduangua.all_course.detail.CourseDetailActivity;
 import com.example.baobang.gameduangua.data.ApiUtils;
 import com.example.baobang.gameduangua.data.SOService;
 import com.example.baobang.gameduangua.listener.RecyclerItemClickListener;
+import com.example.baobang.gameduangua.login.view.LoginActivity;
 import com.example.baobang.gameduangua.model.Course;
 import com.example.baobang.gameduangua.model.ListCourseResponse;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +92,10 @@ public class ListCourseActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 Course course = listCourse.get(position);
                 Log.d("LIStView", "onItemClick: " + course.getCourseName());
+
+                Constant constant = new Constant();
+                constant.setCourseSelectedId(course.getId());
+
                 Intent detailIntent = new Intent(ListCourseActivity.this, CourseDetailActivity.class);
                 detailIntent.putExtra(Constant.COURSE_ID, course.getId());
                 startActivity(detailIntent);
@@ -94,5 +106,42 @@ public class ListCourseActivity extends AppCompatActivity {
 
             }
         }));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.navigation, menu);
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.navigation_home:
+                break;
+            case R.id.userInfo:
+                break;
+            case R.id.logout:
+                logOut();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logOut() {
+        SharedPreferences preferences = getSharedPreferences(
+                Constant.KEY_PREFERENCES,
+                Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(Constant.USER, "");
+        editor.apply();
+        finish();
+        Intent  intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

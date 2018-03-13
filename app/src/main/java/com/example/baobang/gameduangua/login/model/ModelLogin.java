@@ -1,6 +1,8 @@
 package com.example.baobang.gameduangua.login.model;
 
 
+import android.util.Log;
+
 import com.example.baobang.gameduangua.data.ApiUtils;
 import com.example.baobang.gameduangua.data.SOService;
 import com.example.baobang.gameduangua.model.LoginRequest;
@@ -26,6 +28,7 @@ public class ModelLogin {
     public void handleLogin(String email, String password){
         final LoginRequest loginRequest = new LoginRequest(email, password);
 
+        Log.d("Login+handle", " onClick: " + email + ", " + password);
         soService = ApiUtils.getSOService();
         soService.login(loginRequest).enqueue(new Callback<UserResponse>() {
             @Override

@@ -1,5 +1,7 @@
 package com.example.baobang.gameduangua.login.presenter;
 
+import android.util.Log;
+
 import com.example.baobang.gameduangua.model.User;
 import com.example.baobang.gameduangua.login.model.ModelLogin;
 import com.example.baobang.gameduangua.login.model.ModelResponseToPresenterListener;
@@ -20,6 +22,8 @@ public class LoginPresenter implements ModelResponseToPresenterListener {
 
     public void receiveHandleLogin(String email, String password){
         modelLogin = new ModelLogin(this);
+
+
         modelLogin.handleLogin(email, password);
     }
 

@@ -17,8 +17,13 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".login.view.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
 
         <activity android:name=".signup.SignupActivity">
 
@@ -26,11 +31,7 @@
 
         <activity android:name=".all_course.ListCourseActivity"
             android:theme="@style/Base.Theme.AppCompat.Light">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".youtube_video.VideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">

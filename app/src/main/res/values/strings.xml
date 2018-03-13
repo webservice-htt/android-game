@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GameDuaNgua</string>
+    <string name="app_name">Online Study</string>
     <string name="username">Username</string>
     <string name="user_name">Username</string>
     <string name="login">SIGN IN</string>
@@ -38,4 +38,9 @@ Authentication failed, check your email and password or sign up
     </string>
     <string name="action_sign_in_short">Register</string>
     <string name="error_player">There was an error initializing the YouTubePlayer</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dash Board</string>
+    <string name="title_notifications">Notification</string>
+    <string name="userInfo">User info</string>
+    <string name="log_out">Log out</string>
 </resources>

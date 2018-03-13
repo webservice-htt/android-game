@@ -6,13 +6,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.baobang.gameduangua.Constant;
-import com.example.baobang.gameduangua.fragment.CourseDescriptionFragment;
+import com.example.baobang.gameduangua.all_course.ListCourseActivity;
+import com.example.baobang.gameduangua.all_course.detail.CourseDetailActivity;
 import com.example.baobang.gameduangua.R;
 import com.example.baobang.gameduangua.login.presenter.LoginPresenter;
 import com.example.baobang.gameduangua.model.User;
@@ -42,15 +44,16 @@ public class LoginActivity extends AppCompatActivity implements ViewLoginListene
 
         if (!TextUtils.isEmpty(userString)){
             User user = gson.fromJson(userString, User.class);
-            if (user.getRole() == 1){
+//            if (user.getRole() == 1){
 //                startActivity(new Intent(this, TeacherActivity.class));
-                finish();
-            }else{
-                Intent intent = new Intent(this, CourseDescriptionFragment.class);
+//                finish();
+//            }else{
+                Intent intent = new Intent(this, ListCourseActivity.class);
                 intent.putExtra(Constant.USER, userString);
 
                 startActivity(intent);
-            }
+                finish();
+//            }
         }
     }
 
@@ -73,10 +76,10 @@ public class LoginActivity extends AppCompatActivity implements ViewLoginListene
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(Constant.USER, json);
-        editor.commit();
+        editor.apply();
 
         if (user.getRole() == 0){
-            Intent mainInter = new Intent(this, CourseDescriptionFragment.class);
+            Intent mainInter = new Intent(this, ListCourseActivity.class);
             mainInter.putExtra(Constant.USER, json);
             startActivity(mainInter);
             finish();
@@ -100,6 +103,7 @@ public class LoginActivity extends AppCompatActivity implements ViewLoginListene
                 String email = txtUsername.getText().toString().trim();
                 String password = txtPassword.getText().toString().trim();
 
+                Log.d("Login+Click", " onClick: " + email + ", " + password);
                 if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
                     loginPresenter.receiveHandleLogin(email, password);
                 }else{

@@ -43,7 +43,7 @@ public class LessonListAdapter extends RecyclerView.Adapter<LessonListAdapter.Le
 
     @Override
     public int getItemCount() {
-        return listLesson.size();
+        return listLesson == null ? 0 : listLesson.size();
     }
 
     public class LessonViewHolder extends RecyclerView.ViewHolder{
@@ -75,6 +75,5 @@ public class LessonListAdapter extends RecyclerView.Adapter<LessonListAdapter.Le
     }
     public interface OnItemClickListener{
         void onClick(int pos);
-
     }
 }

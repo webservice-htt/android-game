@@ -13,4 +13,14 @@ public class Constant {
     public static final String EMAIL = "EMAIL";
     public static final String PASSWORD = "PASSWORD";
     public static final String URL = "URL";
+
+    private static String courseSelectedId = "";
+
+    public String getCourseSelectedId() {
+        return courseSelectedId;
+    }
+
+    public void setCourseSelectedId(String courseSelectedId) {
+        Constant.courseSelectedId = courseSelectedId;
+    }
 }

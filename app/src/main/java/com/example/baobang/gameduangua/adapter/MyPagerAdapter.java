@@ -40,7 +40,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter{
             case 1:
                 return "Lectures";
             default:
-                return "";
+                return "Default";
         }
     }
 

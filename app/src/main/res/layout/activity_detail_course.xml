@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/imvCourse"
-        android:background="@android:color/white"
+        android:background="@color/white"
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabTextColor="@android:color/darker_gray"
         app:tabSelectedTextColor="@color/colorPrimary">

@@ -6,9 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.baobang.gameduangua.R;
+import com.example.baobang.gameduangua.all_course.detail.CourseDetailActivity;
 import com.example.baobang.gameduangua.model.Course;
 
 import java.util.List;
@@ -50,17 +53,21 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
         private TextView txtCourseName;
         private TextView txtDescription;
         private Button btnSubmit;
+        private ImageView imgCourse;
 
         public CourseHolder(View itemView) {
             super(itemView);
             txtCourseName = itemView.findViewById(R.id.txtCourseName);
             txtDescription = itemView.findViewById(R.id.txtDescription);
             btnSubmit = itemView.findViewById(R.id.btnSubmit);
+            imgCourse = itemView.findViewById(R.id.imgCourse);
+
         }
 
         public void bindView (Course course){
             txtCourseName.setText(course.getCourseName());
             txtDescription.setText(course.getDescription());
+            Glide.with(context).load(course.getImgUrl()).into(imgCourse);
         }
     }
 }

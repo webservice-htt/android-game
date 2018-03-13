@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.example.baobang.gameduangua.Constant;
 import com.example.baobang.gameduangua.R;
+import com.example.baobang.gameduangua.all_course.ListCourseActivity;
+import com.example.baobang.gameduangua.all_course.detail.CourseDetailActivity;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -22,7 +24,7 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
         private static final String API_KEY = "AIzaSyD7XAAYCbQPw6FOd8Yz5JqyOKh7I2PJS0c";
         private static String VIDEO_ID = "";
         private static final int RECOVERY_DIALOG_REQUEST = 1;
-        
+        private String COURSE_ID = "";
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -142,4 +144,8 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
             }
         };
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
