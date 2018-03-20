@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,6 +26,7 @@ import com.example.baobang.gameduangua.listener.RecyclerItemClickListener;
 import com.example.baobang.gameduangua.login.view.LoginActivity;
 import com.example.baobang.gameduangua.model.Course;
 import com.example.baobang.gameduangua.model.ListCourseResponse;
+import com.example.baobang.gameduangua.utils.AppUtils;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -93,8 +95,13 @@ public class ListCourseActivity extends AppCompatActivity {
                 Course course = listCourse.get(position);
                 Log.d("LIStView", "onItemClick: " + course.getCourseName());
 
-                Constant constant = new Constant();
-                constant.setCourseSelectedId(course.getId());
+                AppUtils.setValueToSharedPreferences(
+                        getApplicationContext(),
+                        Constant.KEY_PREFERENCES,
+                        MODE_PRIVATE,
+                        Constant.COURSE_ID,
+                        course.getId()
+                );
 
                 Intent detailIntent = new Intent(ListCourseActivity.this, CourseDetailActivity.class);
                 detailIntent.putExtra(Constant.COURSE_ID, course.getId());
@@ -121,8 +128,7 @@ public class ListCourseActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.navigation_home:
-                break;
-            case R.id.userInfo:
+                goToHomeActivity();
                 break;
             case R.id.logout:
                 logOut();
@@ -130,6 +136,12 @@ public class ListCourseActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void goToHomeActivity() {
+        Intent  intent = new Intent(this, ListCourseActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     private void logOut() {
@@ -140,8 +152,8 @@ public class ListCourseActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(Constant.USER, "");
         editor.apply();
-        finish();
         Intent  intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

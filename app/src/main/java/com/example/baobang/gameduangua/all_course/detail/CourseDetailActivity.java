@@ -9,6 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -21,9 +24,11 @@ import com.example.baobang.gameduangua.data.ApiUtils;
 import com.example.baobang.gameduangua.data.SOService;
 import com.example.baobang.gameduangua.fragment.CourseDescriptionFragment;
 import com.example.baobang.gameduangua.fragment.LessonFragment;
+import com.example.baobang.gameduangua.login.view.LoginActivity;
 import com.example.baobang.gameduangua.model.LessonObjResponse;
 import com.example.baobang.gameduangua.model.LessonResponse;
 import com.example.baobang.gameduangua.model.User;
+import com.example.baobang.gameduangua.utils.AppUtils;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -51,17 +56,21 @@ import retrofit2.Response;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_course);
-        listFragments = new ArrayList<>();
         mService = ApiUtils.getSOService();
 
-            Constant constant = new Constant();
-            String courseId = constant.getCourseSelectedId();
+            String courseId = AppUtils.getValueToSharedPreferences(
+                    this,
+                    Constant.KEY_PREFERENCES,
+                    MODE_PRIVATE,
+                    Constant.COURSE_ID
+            );
+
             if(!courseId.equals("")){
                 mService.getLessonById(courseId).enqueue(new Callback<LessonObjResponse>() {
                     @Override
                     public void onResponse(Call<LessonObjResponse> call, Response<LessonObjResponse> response) {
                         if (response.isSuccessful()){
-
+                            Log.e("SIZE", response.body().getLessonResponse().getLessons().size() + "");
                             onGetLessonSuccess(response.body().getLessonResponse());
                             String url = response.body().getLessonResponse().getImage();
                             Glide.with(CourseDetailActivity.this).load(url).into(imvCourse);
@@ -71,43 +80,16 @@ import retrofit2.Response;
 
                     @Override
                     public void onFailure(Call<LessonObjResponse> call, Throwable t) {
-
                     }
                 });
             }
-
-//        Intent intent = getIntent();
-//        if (intent.hasExtra(Constant.COURSE_ID)){
-//            courseID = intent.getStringExtra(Constant.COURSE_ID);
-//            Log.d("CourseID", "onCreate: " + courseID);
-//
-//            mService.getLessonById(courseID).enqueue(new Callback<LessonObjResponse>() {
-//                @Override
-//                public void onResponse(Call<LessonObjResponse> call, Response<LessonObjResponse> response) {
-//                    if (response.isSuccessful()){
-//
-//                        onGetLessonSuccess(response.body().getLessonResponse());
-//                        String url = response.body().getLessonResponse().getImage();
-//                        Glide.with(CourseDetailActivity.this).load(url).into(imvCourse);
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<LessonObjResponse> call, Throwable t) {
-//
-//                }
-//            });
-//        }
     }
 
     private void onGetLessonSuccess(LessonResponse lessonResponse) {
-//        for(int i = 0 ; i < listFragments.size(); i++){
-//            listFragments.get(i).onUpdateData(lessonResponse);
-//        }
         addControls(lessonResponse);
         addEvents();
     }
+
 
     private void addEvents() {
     }
@@ -119,10 +101,52 @@ import retrofit2.Response;
 
         CourseDescriptionFragment courseDescriptionFragment = CourseDescriptionFragment.newInstance(lessonResponse.getDescription());
         LessonFragment lecturesFragment = LessonFragment.newInstance(lessonResponse.getLessons());
+        listFragments = new ArrayList<>();
+
         listFragments.add(courseDescriptionFragment);
         listFragments.add(lecturesFragment);
 
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), listFragments));
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.navigation, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.navigation_home:
+                goToHomeActivity();
+                break;
+            case R.id.logout:
+                logOut();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void goToHomeActivity() {
+        Intent  intent = new Intent(this, ListCourseActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+
+    private void logOut() {
+        SharedPreferences preferences = getSharedPreferences(
+                Constant.KEY_PREFERENCES,
+                Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(Constant.USER, "");
+        editor.apply();
+        Intent  intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

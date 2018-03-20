@@ -2,11 +2,13 @@ package com.example.baobang.gameduangua.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by huuduc on 08/03/2018.
  */
 
-public class Lesson  {
+public class Lesson  implements Serializable{
     @SerializedName("_id")
     private String lessonId;
 

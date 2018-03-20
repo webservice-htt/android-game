@@ -2,9 +2,7 @@ package com.example.baobang.gameduangua.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by huuduc on 29/01/2018.
- */
+
 
 public class UserResponse {
     @SerializedName("statuscode")

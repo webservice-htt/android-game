@@ -12,6 +12,7 @@ import com.example.baobang.gameduangua.all_course.detail.CourseDetailActivity;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 /**
@@ -21,6 +22,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener{
 
         private YouTubePlayer YPlayer;
+        private YouTubePlayerFragment youTubePlayerFragment;
         private static final String API_KEY = "AIzaSyD7XAAYCbQPw6FOd8Yz5JqyOKh7I2PJS0c";
         private static String VIDEO_ID = "";
         private static final int RECOVERY_DIALOG_REQUEST = 1;
@@ -35,8 +37,10 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
             if (intent.hasExtra(Constant.URL)){
                 VIDEO_ID = intent.getStringExtra(Constant.URL);
             }
-            YouTubePlayerView youTubeView = findViewById(R.id.youtube_view);
-            youTubeView.initialize(API_KEY, this);
+
+            youTubePlayerFragment = (YouTubePlayerFragment) getFragmentManager()
+                    .findFragmentById(R.id.youtubeplayerfragment);
+            youTubePlayerFragment.initialize(API_KEY, this);
         }
 
         @Override
@@ -47,7 +51,7 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
         }
 
     private YouTubePlayer.Provider getYouTubePlayerProvider() {
-        return (YouTubePlayerView) findViewById(R.id.youtube_view);
+        return (YouTubePlayerView) findViewById(R.id.youtubeplayerfragment);
     }
 
     @Override
@@ -147,5 +151,6 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
     }
 }

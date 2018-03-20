@@ -52,14 +52,12 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
 
         private TextView txtCourseName;
         private TextView txtDescription;
-        private Button btnSubmit;
         private ImageView imgCourse;
 
         public CourseHolder(View itemView) {
             super(itemView);
             txtCourseName = itemView.findViewById(R.id.txtCourseName);
             txtDescription = itemView.findViewById(R.id.txtDescription);
-            btnSubmit = itemView.findViewById(R.id.btnSubmit);
             imgCourse = itemView.findViewById(R.id.imgCourse);
 
         }

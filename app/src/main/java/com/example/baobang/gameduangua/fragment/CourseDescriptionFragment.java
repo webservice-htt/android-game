@@ -14,11 +14,13 @@ import com.example.baobang.gameduangua.model.LessonResponse;
 public class CourseDescriptionFragment extends BaseFragment {
 
     private TextView txtCourseDescription;
-    private String desc;
 
     public static CourseDescriptionFragment newInstance(String des) {
         CourseDescriptionFragment fragment = new CourseDescriptionFragment();
-        fragment.desc = des;
+
+        Bundle bundle = new Bundle();
+        bundle.putString("DES", des);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -35,8 +37,10 @@ public class CourseDescriptionFragment extends BaseFragment {
 
         txtCourseDescription = view.findViewById(R.id.courseDiscription);
 
-        if(txtCourseDescription != null)
-            txtCourseDescription.setText(desc);
+        if(txtCourseDescription != null){
+            String des = getArguments().getString("DES");
+            txtCourseDescription.setText(des);
+        }
     }
 
     @Override

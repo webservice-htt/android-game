@@ -39,19 +39,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:paddingBottom="10dp"
             android:paddingStart="10dp"
             tools:text="Description here: nguyen huu duc hoc vien cong nghe buu chinh vien thong"
             app:layout_constraintTop_toBottomOf="@id/txtCourseName"/>
 
-        <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Chi tiết"
-            app:layout_constraintTop_toBottomOf="@id/txtDescription"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>
