@@ -38,22 +38,16 @@ public class LoginActivity extends AppCompatActivity implements ViewLoginListene
     protected void onStart() {
         super.onStart();
         SharedPreferences preferences = getSharedPreferences(Constant.KEY_PREFERENCES, Context.MODE_PRIVATE);
-        Gson gson = new Gson();
         String userString = preferences.getString(Constant.USER, "");
 
 
         if (!TextUtils.isEmpty(userString)){
-            User user = gson.fromJson(userString, User.class);
-//            if (user.getRole() == 1){
-//                startActivity(new Intent(this, TeacherActivity.class));
-//                finish();
-//            }else{
+
                 Intent intent = new Intent(this, ListCourseActivity.class);
                 intent.putExtra(Constant.USER, userString);
 
                 startActivity(intent);
                 finish();
-//            }
         }
     }
 
@@ -78,17 +72,10 @@ public class LoginActivity extends AppCompatActivity implements ViewLoginListene
         editor.putString(Constant.USER, json);
         editor.apply();
 
-        if (user.getRole() == 0){
-            Intent mainInter = new Intent(this, ListCourseActivity.class);
-            mainInter.putExtra(Constant.USER, json);
-            startActivity(mainInter);
-            finish();
-        }else if (user.getRole() == 1){
-//            Intent teacherIntent = new Intent(this, TeacherActivity.class);
-//            teacherIntent.putExtra(Constant.USER, json);
-//            startActivity(teacherIntent);
-//            finish();
-        }
+        Intent mainInter = new Intent(this, ListCourseActivity.class);
+        mainInter.putExtra(Constant.USER, json);
+        startActivity(mainInter);
+        finish();
     }
 
     @Override
@@ -103,7 +90,6 @@ public class LoginActivity extends AppCompatActivity implements ViewLoginListene
                 String email = txtUsername.getText().toString().trim();
                 String password = txtPassword.getText().toString().trim();
 
-                Log.d("Login+Click", " onClick: " + email + ", " + password);
                 if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
                     loginPresenter.receiveHandleLogin(email, password);
                 }else{

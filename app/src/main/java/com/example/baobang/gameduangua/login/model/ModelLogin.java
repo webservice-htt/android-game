@@ -44,6 +44,7 @@ public class ModelLogin {
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
+                callback.onLoginFailed();
             }
         });
     }
