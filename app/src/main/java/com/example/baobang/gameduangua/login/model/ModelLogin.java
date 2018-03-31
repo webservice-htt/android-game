@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.example.baobang.gameduangua.data.ApiUtils;
 import com.example.baobang.gameduangua.data.SOService;
-import com.example.baobang.gameduangua.model.LoginRequest;
+import com.example.baobang.gameduangua.model.UserRequest;
 import com.example.baobang.gameduangua.model.User;
 import com.example.baobang.gameduangua.model.UserResponse;
 
@@ -26,7 +26,7 @@ public class ModelLogin {
     }
 
     public void handleLogin(String email, String password){
-        final LoginRequest loginRequest = new LoginRequest(email, password);
+        final UserRequest loginRequest = new UserRequest(email, password);
 
         Log.d("Login+handle", " onClick: " + email + ", " + password);
         soService = ApiUtils.getSOService();

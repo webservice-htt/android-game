@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.baobang.gameduangua.Constant;
@@ -18,13 +19,18 @@ import com.example.baobang.gameduangua.all_course.detail.CourseDetailActivity;
 import com.example.baobang.gameduangua.R;
 import com.example.baobang.gameduangua.login.presenter.LoginPresenter;
 import com.example.baobang.gameduangua.model.User;
+import com.example.baobang.gameduangua.signup.SignupActivity;
 import com.google.gson.Gson;
 
 public class LoginActivity extends AppCompatActivity implements ViewLoginListener, View.OnClickListener {
 
+    private static final String TAG = "LoginActivity";
+    private static final int REQUEST_CODE = 100;
+
     private LoginPresenter loginPresenter;
     private EditText txtUsername, txtPassword;
     private Button btnLogin;
+    private TextView txtRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,9 @@ public class LoginActivity extends AppCompatActivity implements ViewLoginListene
         txtPassword = findViewById(R.id.password);
         btnLogin = findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(this);
+
+        txtRegister = findViewById(R.id.txtRegister);
+        txtRegister.setOnClickListener(this);
     }
 
     @Override
@@ -95,6 +104,30 @@ public class LoginActivity extends AppCompatActivity implements ViewLoginListene
                 }else{
                     Toast.makeText(LoginActivity.this, "Vui lòng điền đủ thông tin!", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.txtRegister:
+                goToRegisterActivity();
         }
+    }
+
+    private void goToRegisterActivity() {
+        Intent intent = new Intent(this, SignupActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(resultCode == RESULT_OK && requestCode == REQUEST_CODE){
+            Bundle bundle = data.getExtras();
+
+            if(bundle != null){
+                String userName = bundle.getString(SignupActivity.BUNDLE_KEY_USERNAME);
+                String password = bundle.getString(SignupActivity.BUNDLE_KEY_PASSWORD);
+                txtUsername.setText(userName);
+                txtPassword.setText(password);
+            }
+        }
+
     }
 }
