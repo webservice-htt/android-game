@@ -13,6 +13,11 @@ public class ListLessonResponse extends BaseResponse{
     @SerializedName("results")
     private List<LessonResponse> courseInfo;
 
+    public ListLessonResponse(int statusCode, List<LessonResponse> courseInfo) {
+        super(statusCode);
+        this.courseInfo = courseInfo;
+    }
+
     public List<LessonResponse> getCourseInfo() {
         return courseInfo;
     }

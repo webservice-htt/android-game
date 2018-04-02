@@ -1,6 +1,7 @@
 package com.example.baobang.gameduangua.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,13 +50,14 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
     }
 
     public class CourseHolder extends RecyclerView.ViewHolder {
-
+        private CardView cvContainer;
         private TextView txtCourseName;
         private TextView txtDescription;
         private ImageView imgCourse;
 
         public CourseHolder(View itemView) {
             super(itemView);
+            cvContainer = itemView.findViewById(R.id.container);
             txtCourseName = itemView.findViewById(R.id.txtCourseName);
             txtDescription = itemView.findViewById(R.id.txtDescription);
             imgCourse = itemView.findViewById(R.id.imgCourse);
@@ -66,6 +68,22 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
             txtCourseName.setText(course.getCourseName());
             txtDescription.setText(course.getDescription());
             Glide.with(context).load(course.getImgUrl()).into(imgCourse);
+            cvContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener != null){
+                        listener.onClick(getAdapterPosition());
+                    }
+                }
+            });
         }
+    }
+
+    private CourseListAdapter.OnItemClickListener listener;
+    public void setOnItemClickListener(CourseListAdapter.OnItemClickListener callBack){
+        this.listener = callBack;
+    }
+    public interface OnItemClickListener{
+        void onClick(int pos);
     }
 }

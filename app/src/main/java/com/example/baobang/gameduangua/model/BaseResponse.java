@@ -8,13 +8,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class BaseResponse {
     @SerializedName("statuscode")
-    private int statuscode;
+    private int statusCode;
 
-    public int getStatuscode() {
-        return statuscode;
+    public BaseResponse(int statuscode) {
+        this.statusCode = statuscode;
     }
 
-    public void setStatuscode(int statuscode) {
-        this.statuscode = statuscode;
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
     }
 }

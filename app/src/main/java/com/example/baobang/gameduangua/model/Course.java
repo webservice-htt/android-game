@@ -23,17 +23,28 @@ public class Course {
     private String imgUrl;
 
     @SerializedName("lessons")
-    private ArrayList<Lesson> listLesson;
+    private ArrayList<String> listLesson;
+
+    @SerializedName("fee")
+    private int fee;
 
     public Course() {
     }
 
-    public Course(String id, String courseName, String description, String imgUrl, ArrayList<Lesson> listLesson) {
+    public Course(String id, String courseName, String description, String imgUrl, ArrayList<String> listLesson) {
         this.id = id;
         this.courseName = courseName;
         this.description = description;
         this.imgUrl = imgUrl;
         this.listLesson = listLesson;
+    }
+
+    public int getFee() {
+        return fee;
+    }
+
+    public void setFee(int fee) {
+        this.fee = fee;
     }
 
     public String getId() {
@@ -68,11 +79,11 @@ public class Course {
         this.imgUrl = imgUrl;
     }
 
-    public ArrayList<Lesson> getListLesson() {
+    public ArrayList<String> getListLesson() {
         return listLesson;
     }
 
-    public void setListLesson(ArrayList<Lesson> listLesson) {
+    public void setListLesson(ArrayList<String> listLesson) {
         this.listLesson = listLesson;
     }
 }

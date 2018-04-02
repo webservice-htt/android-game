@@ -1,5 +1,6 @@
 package com.example.baobang.gameduangua.data;
 
+import com.example.baobang.gameduangua.model.CategoryRespone;
 import com.example.baobang.gameduangua.model.LessonObjResponse;
 import com.example.baobang.gameduangua.model.ListCourseResponse;
 import com.example.baobang.gameduangua.model.ListUserResponse;
@@ -30,4 +31,7 @@ public interface SOService {
 
     @GET("/course/{courseID}")
     Call<LessonObjResponse> getLessonById(@Path("courseID") String courseID);
+
+    @GET("/category")
+    Call<CategoryRespone> getAllCategories();
 }
