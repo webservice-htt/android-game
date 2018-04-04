@@ -15,7 +15,11 @@ import com.example.baobang.gameduangua.R;
 import com.example.baobang.gameduangua.all_course.detail.CourseDetailActivity;
 import com.example.baobang.gameduangua.model.Course;
 
+import java.text.NumberFormat;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Created by huuduc on 31/01/2018.
@@ -53,6 +57,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
         private CardView cvContainer;
         private TextView txtCourseName;
         private TextView txtDescription;
+        private TextView txtFee;
         private ImageView imgCourse;
 
         public CourseHolder(View itemView) {
@@ -61,13 +66,19 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
             txtCourseName = itemView.findViewById(R.id.txtCourseName);
             txtDescription = itemView.findViewById(R.id.txtDescription);
             imgCourse = itemView.findViewById(R.id.imgCourse);
-
+            txtFee = itemView.findViewById(R.id.txtFee);
         }
 
         public void bindView (Course course){
             txtCourseName.setText(course.getCourseName());
             txtDescription.setText(course.getDescription());
             Glide.with(context).load(course.getImgUrl()).into(imgCourse);
+
+            Locale locale = new Locale("vi", "VN");
+            NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+            Currency currency = Currency.getInstance(locale);
+
+            txtFee.setText(new StringBuilder(numberFormat.format(course.getFee()) + currency.getSymbol()));
             cvContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -16,11 +16,13 @@ import android.view.ViewGroup;
 import com.example.baobang.gameduangua.Constant;
 import com.example.baobang.gameduangua.R;
 import com.example.baobang.gameduangua.adapter.CourseListAdapter;
+import com.example.baobang.gameduangua.adapter.UserCourseListAdapter;
 import com.example.baobang.gameduangua.all_course.detail.CourseDetailActivity;
 import com.example.baobang.gameduangua.data.ApiUtils;
 import com.example.baobang.gameduangua.data.SOService;
 import com.example.baobang.gameduangua.model.Course;
 import com.example.baobang.gameduangua.model.User;
+import com.example.baobang.gameduangua.model.UserCourse;
 import com.example.baobang.gameduangua.model.UserResponse;
 import com.example.baobang.gameduangua.utils.AppUtils;
 
@@ -39,8 +41,8 @@ import static android.content.Context.MODE_PRIVATE;
 public class MyCourseFragment extends Fragment {
 
     RecyclerView mRvCourse;
-    CourseListAdapter mCourseListAdapter;
-    List<Course> mCourses;
+    UserCourseListAdapter mCourseListAdapter;
+    List<UserCourse> mCourses;
 
     private SOService mSoService;
 
@@ -59,26 +61,26 @@ public class MyCourseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_course, container, false);
         mRvCourse = view.findViewById(R.id.rcCourses);
         mCourses = new ArrayList<>();
-        mCourseListAdapter = new CourseListAdapter(getContext(), mCourses);
+        mCourseListAdapter = new UserCourseListAdapter(getContext(), mCourses);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         mRvCourse.setLayoutManager(layoutManager);
         mRvCourse.setAdapter(mCourseListAdapter);
-        mCourseListAdapter.setOnItemClickListener(new CourseListAdapter.OnItemClickListener() {
+        mCourseListAdapter.setOnItemClickListener(new UserCourseListAdapter.OnItemClickListener() {
             @Override
             public void onClick(int pos) {
 
-                Course course = mCourses.get(pos);
+                UserCourse course = mCourses.get(pos);
 
                 AppUtils.setValueToSharedPreferences(
                         getContext(),
                         Constant.KEY_PREFERENCES,
                         MODE_PRIVATE,
                         Constant.COURSE_ID,
-                        course.getId()
+                        course.getCourse().getId()
                 );
 
                 Intent detailIntent = new Intent(getContext(), CourseDetailActivity.class);
-                detailIntent.putExtra(Constant.COURSE_ID, course.getId());
+                detailIntent.putExtra(Constant.COURSE_ID, course.getCourse().getId());
                 getContext().startActivity(detailIntent);
             }
         });

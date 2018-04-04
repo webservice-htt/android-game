@@ -12,23 +12,34 @@ import java.util.ArrayList;
 public class User implements Serializable{
     @SerializedName("gender")
     private Boolean gender;
+
     @SerializedName("course")
-    private ArrayList<Course> course = null;
+    private ArrayList<UserCourse> course = null;
+
     @SerializedName("_id")
     private String _id;
+
     @SerializedName("role")
     private Integer role;
+
     @SerializedName("name")
     private String name;
+
     @SerializedName("email")
     private String email;
+
     @SerializedName("birthday")
     private String birthday;
+
+    @SerializedName("phone")
+    private String phone;
 
     public User() {
     }
 
-    public User(Boolean gender, ArrayList<Course> course, String _id, Integer role, String name, String email, String birthday) {
+    public User(Boolean gender, ArrayList<UserCourse> course,
+                String _id, Integer role, String name,
+                String email, String birthday, String phone) {
         this.gender = gender;
         this.course = course;
         this._id = _id;
@@ -36,6 +47,7 @@ public class User implements Serializable{
         this.name = name;
         this.email = email;
         this.birthday = birthday;
+        this.phone = phone;
     }
 
     public Boolean getGender() {
@@ -46,11 +58,11 @@ public class User implements Serializable{
         this.gender = gender;
     }
 
-    public ArrayList<Course> getCourse() {
+    public ArrayList<UserCourse> getCourse() {
         return course;
     }
 
-    public void setCourse(ArrayList<Course> course) {
+    public void setCourse(ArrayList<UserCourse> course) {
         this.course = course;
     }
 
