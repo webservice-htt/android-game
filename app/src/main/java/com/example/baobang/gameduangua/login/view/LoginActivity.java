@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements ViewLoginListene
         String json = gson.toJson(user);
 
         Toast.makeText(LoginActivity.this, "Login Thanh Cong : " + user.getName(), Toast.LENGTH_SHORT).show();
-
+        Log.e("USER", json);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(Constant.USER, json);
         editor.apply();

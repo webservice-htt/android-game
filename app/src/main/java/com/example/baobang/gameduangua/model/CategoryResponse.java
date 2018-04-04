@@ -8,11 +8,11 @@ import java.util.List;
  * Created by baobang on 4/2/18.
  */
 
-public class CategoryRespone extends BaseResponse{
+public class CategoryResponse extends BaseResponse{
     @SerializedName("results")
     private List<Category> results = null;
 
-    public CategoryRespone(int statusCode, List<Category> results) {
+    public CategoryResponse(int statusCode, List<Category> results) {
         super(statusCode);
         this.results = results;
     }

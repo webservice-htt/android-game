@@ -2,7 +2,7 @@ package com.example.baobang.gameduangua.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
+/*
  * Created by huuduc on 09/03/2018.
  */
 
